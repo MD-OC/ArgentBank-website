@@ -1,19 +1,34 @@
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+
 import { selectUserFirstName, selectUserLastName } from './dashboardSlice';
-import Account from './../../components/account/Account';
+import { selectIsUserEditVisible, showUserEdit } from '../user-edit/userEditSlice';
+
+import Edit from '../user-edit/UserEdit'
+import Account from '../../components/account/Account';
 import './Dashboard.scss';
 
 const Dashboard = () => {
 
+    const dispatch = useDispatch();
+
     const firstName = useSelector(selectUserFirstName);
     const lastName = useSelector(selectUserLastName);
+    const toggleEdit = useSelector(selectIsUserEditVisible);
+
+    const handleEdit = () => {
+        dispatch(showUserEdit());
+    };
 
     return (
         <main className='main bg-dark'>
-            <div className="header">
-                <h1>Welcome back<br />{firstName} {lastName}!</h1>
-                <button className="edit-button">Edit Name</button>
-            </div>
+
+            {!toggleEdit ?
+                <div className="header">
+                    <h1>Welcome back<br />{firstName} {lastName}!</h1>
+                    <button className="edit-button" onClick={handleEdit}>Edit Name</button>
+                </div> :
+                <Edit />
+            }
             <h2 className="sr-only">Accounts</h2>
 
             <Account 

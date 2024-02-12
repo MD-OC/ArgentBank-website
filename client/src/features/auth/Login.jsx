@@ -14,8 +14,8 @@ const Login = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [login, { isLoading: isLoginLoading }] = useLoginMutation();
-    const [profile, { isLoading: isProfileLoading }] = useProfileMutation();
+    const [login] = useLoginMutation();
+    const [profile] = useProfileMutation();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +29,7 @@ const Login = () => {
             dispatch(setCredentials({ accessToken: token }));
 
             const profileData = await profile().unwrap();
+            console.log(profileData);
             dispatch(setProfile({ 
                 id: profileData.body.id, 
                 firstName: profileData.body.firstName, 

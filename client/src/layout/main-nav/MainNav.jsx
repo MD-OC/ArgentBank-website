@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectCurrentToken, logOut } from '../../features/auth/authSlice';
-import { selectUserFirstName, resetProfile } from '../../features/dashboard/dashboardSlice';
+import { selectUserUserName, resetProfile } from '../../features/dashboard/dashboardSlice';
 
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -13,7 +13,7 @@ import './MainNav.scss';
 const MainNav = () => {
 
     const token = useSelector(selectCurrentToken);
-    const firstName = useSelector(selectUserFirstName);
+    const userName = useSelector(selectUserUserName);
 
     const dispatch = useDispatch();
 
@@ -41,11 +41,11 @@ const MainNav = () => {
                 </NavLink>
             )}
 
-            {token && firstName && (
+            {token && userName && (
                 <div>
                     <NavLink className="main-nav-item" to="/user">
                         <FontAwesomeIcon icon={faCircleUser} />
-                        {firstName}             
+                        {userName}             
                     </NavLink>
 
                     <NavLink className="main-nav-item" to="/">
