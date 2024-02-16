@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -16,6 +17,8 @@ const Login = () => {
 
     const [login] = useLoginMutation();
     const [profile] = useProfileMutation();
+
+    const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,6 +45,7 @@ const Login = () => {
             
         } catch (error) {
             console.error('Failed to login:', error);
+            setErrorMessage('Username or password is incorrect');
         }
     };
 
@@ -51,6 +55,9 @@ const Login = () => {
                 <FontAwesomeIcon icon={faCircleUser} className="sign-in-icon"/>
                 <h1>Sign In</h1>
                 <form onSubmit={handleSubmit}>
+
+                    {errorMessage && <div className="error-message">{errorMessage}</div>}
+
                     <div className="input-wrapper">
                         <label htmlFor="email">Username</label>
                         <input
